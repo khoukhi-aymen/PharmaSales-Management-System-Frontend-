@@ -1,0 +1,1827 @@
+/*
+Vert : #8cc63f
+Bleu : #3a57a6
+Rose : #e91e63 (accent bouton)
+*/
+
+/* --- Début style App --- */
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+/* --- Fin style App --- */
+
+
+/* -----------------------BEGIN NAVBAR ----------------------- */
+.custom-navbar {
+  background: linear-gradient(135deg, #3a57a6, #8cc63f); /* bleu → vert */
+  background-size: 400% 400%;
+  animation: gradientNavbar 15s ease infinite;
+  backdrop-filter: blur(12px);
+  transition: all 0.5s ease, padding 0.3s ease;
+  padding: 14px 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.custom-navbar.scrolled {
+  padding: 8px 0;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+}
+
+@keyframes gradientNavbar {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* --- LOGO --- */
+.brand-logo {
+  font-size: 1.6rem;
+  background: linear-gradient(90deg, #00b7ff, #00ff00); /* turquoise → bordeaux */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  position: relative;
+  transition: all 0.4s ease;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4); /* ombre pour contraste */
+}
+
+
+.brand-logo::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #00b7ff, #00ff00);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.brand-logo:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+
+.logo-img {
+  height: 65px;   /* Ajuste la taille */
+  width: auto;
+  object-fit: contain;
+}
+
+/* -----------------------END NAVBAR ----------------------- */
+
+
+
+/* ----------------- BEGIN FOOTER SECTION --------------- */
+
+.footer {
+  background: linear-gradient(135deg, #3a57a6, #8cc63f); /* bleu → vert */
+  text-align: center;
+  padding: 25px 15px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animation background flottant */
+.footer::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 70%);
+  top: -50%;
+  left: -50%;
+  animation: rotate-bg 20s linear infinite;
+  z-index: 0;
+}
+
+@keyframes rotate-bg {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.social-icons {
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin: 0 12px;
+  font-size: 1.6rem;
+  color: #fff;
+  transition: transform 0.4s ease, color 0.4s ease;
+}
+
+.social-icons a:hover {
+  transform: translateY(-5px) scale(1.2);
+  color: #ffea00;
+}
+
+.footer-text {
+  font-size: 0.95rem;
+  color: #e0e0e0;
+  position: relative;
+  z-index: 1;
+}
+
+/* 📱 Responsive */
+@media (max-width: 576px) {
+  .social-icons a {
+    font-size: 1.4rem;
+    margin: 0 8px;
+  }
+  .footer-text {
+    font-size: 0.85rem;
+  }
+}
+
+
+/* ----------------- END FOOTER SECTION --------------- */
+
+
+
+/* ---------------- BEGIN BOOK APP PAGE SECTION ---------------- */
+
+/* ---------------- BOOK APPOINTMENT MODAL ---------------- */
+
+/* Overlay sombre */
+.appointment-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 100px;
+  z-index: 1000;
+  overflow-y: auto; /* permet de scroller si l'écran est petit */
+}
+
+/* Modale */
+.appointment-modal {
+  background: linear-gradient(135deg, #3a57a6, #8cc63f); /* Bleu → Vert */
+  padding: 30px 25px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  width: 85%;              /* largeur par défaut */
+  max-width: 480px;        /* limite sur grands écrans */
+  margin: 0 auto;          /* centre horizontalement */
+  color: #fff;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Bouton fermer */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(179, 0, 0, 0.733);
+  border: none;
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(235, 2, 2, 0.904);
+}
+
+/* Titre */
+.appointment-modal h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  line-height: 1.2;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Formulaire */
+.appointment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* ✅ espace homogène */
+}
+
+.appointment-form input,
+.appointment-form select {
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  transition: all 0.3s ease;
+  width: 100%; /* ✅ occupe toute la largeur */
+  box-sizing: border-box;
+}
+
+/* Texte placeholder */
+.appointment-form input::placeholder {
+  color: rgba(255,255,255,0.8);
+}
+
+/* Focus */
+.appointment-form input:focus,
+.appointment-form select:focus {
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+/* ✅ Couleur des options */
+select option {
+  color: #000 !important; /* noir */
+}
+select.form-select {
+  color: #fff; /* texte sélectionné blanc */
+}
+
+/* Bouton */
+.appointment-form button {
+  background: #fff;
+  color: #3a57a6;
+  font-weight: 600;
+  border-radius: 50px;
+  padding: 12px 25px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.appointment-form button:hover {
+  background: #3a57a6;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .appointment-modal {
+    width: 90%;              /* un peu de marge */
+    margin: 20px auto;       /* espace haut/bas et centrage */
+    padding: 25px 20px;
+    border-radius: 16px;
+  }
+
+  .appointment-modal h2 {
+    font-size: 1.5rem;
+  }
+
+  .appointment-form input,
+  .appointment-form select {
+    font-size: 0.95rem;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .appointment-modal {
+    width: 95%;             /* pas collé aux bords */
+    margin: 15px auto;      /* espace haut/bas */
+    border-radius: 12px;
+    padding: 20px 15px;
+  }
+
+  .appointment-modal h2 {
+    font-size: 1.3rem;
+  }
+
+  .appointment-form input,
+  .appointment-form select {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+
+  .appointment-form button {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ---------------- BEGIN BOOK APP PAGE SECTION ---------------- */
+
+
+
+
+/* ---------------- BEGIIN CSS MESSAGE APP ---------------- */
+
+
+/* === Base Alert === */
+.advanced-alert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  color: #fff;
+  padding: 25px 35px;
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  text-align: center;
+  z-index: 9999;
+  width: 90%;
+  max-width: 420px;
+  animation: fadeInZoom 0.4s ease forwards;
+}
+
+/* Success Alert (Green) */
+.advanced-alert.success {
+  background: linear-gradient(135deg, #00c853, #43a047);
+}
+
+/* Error Alert (Red) */
+.advanced-alert.error {
+  background: linear-gradient(135deg, #e53935, #b71c1c);
+}
+
+.alert-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.alert-icon {
+  font-size: 32px;
+  animation: pulse 1.5s infinite;
+}
+
+.advanced-alert p {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Button */
+.alert-btn {
+  background: #fff;
+  color: #333;
+  font-weight: bold;
+  padding: 10px 22px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.alert-btn:hover {
+  background: #f1f1f1;
+  transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeInZoom {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .advanced-alert {
+    padding: 18px 20px;
+    border-radius: 14px;
+  }
+
+  .advanced-alert p {
+    font-size: 15px;
+  }
+
+  .alert-btn {
+    font-size: 14px;
+    padding: 8px 18px;
+  }
+}
+
+
+/* AdminSidebar.css */
+
+/* === Base Alert Top === */
+.top-alert {
+  position: fixed;
+  top: 20px; /* En haut de l'écran */
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
+  z-index: 9999;
+  min-width: 280px;
+  max-width: 400px;
+  animation: fadeInTop 0.4s ease forwards;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Success Alert */
+.top-alert.success {
+  background: linear-gradient(135deg, #00c853, #43a047);
+}
+
+/* Error Alert */
+.top-alert.error {
+  background: linear-gradient(135deg, #e53935, #b71c1c);
+}
+
+/* Texte du message */
+.top-alert-content span {
+  font-size: 16px;
+  font-weight: 500;
+  flex: 1;
+}
+
+/* Bouton OK */
+.top-alert-btn {
+  background: #fff;
+  color: #333;
+  font-weight: bold;
+  padding: 8px 18px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.top-alert-btn:hover {
+  background: #f1f1f1;
+  transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeInTop {
+  from { opacity: 0; transform: translate(-50%, -20px) scale(0.8); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .top-alert {
+    padding: 15px 20px;
+    min-width: 220px;
+    max-width: 90%;
+  }
+
+  .top-alert-content span {
+    font-size: 14px;
+  }
+
+  .top-alert-btn {
+    font-size: 14px;
+    padding: 6px 14px;
+  }
+}
+
+
+
+
+/* ---------------- END CSS MESSAGE APP ---------------- */
+
+
+/*-----------------BEGIN Login Container ----------------*/
+
+.login-page-section {
+  margin: 50px auto;
+  max-width: 800px;
+  padding: 120px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* === Login Box === */
+.login-page-box {
+  flex: 1;
+  padding: 40px 30px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #3a57a6, #8cc63f); /* bleu → vert */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+.login-page-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* === Title === */
+.login-page-box h2 {
+  font-size: 2.3rem;
+  margin-bottom: 25px;
+  color: #fff;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+/* === Login Form === */
+.login-page-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-page-form input {
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+/* === Placeholders === */
+.login-page-form input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* === Focus === */
+.login-page-form input:focus {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* === Button === */
+.login-page-form button {
+  background: #fff;
+  color: #3a57a6;
+  font-weight: 600;
+  border-radius: 50px;
+  padding: 12px 25px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-page-form button:hover {
+  background: #3a57a6;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* === Responsive === */
+@media (max-width: 600px) {
+  .login-page-box {
+    padding: 25px 20px;
+  }
+
+  .login-page-box h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+}
+
+
+
+/*-----------------END Login Container ----------------*/
+
+/*----------------- BEGIN LAYOUT GLOBAL --------------- */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f9fafb;
+}
+
+.admin-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100vh;
+}
+
+.admin-content {
+  flex: 1;
+  padding: 30px;
+  background: #f3f4f6;
+  overflow-y: auto;
+}
+
+/*------------------- END LAYOUT GLOBAL ---------------- */
+
+/* ---------------------- BEGIN SIDEBAR -----------------*/
+.admin-sidebar {
+  width: 250px;
+  background: linear-gradient(180deg, #1e3a8a, #059669);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.sidebar-logo img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 4px solid #10b981;
+  background: white;
+  padding: 5px;
+  object-fit: contain;
+}
+
+.sidebar-logo h2 {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
+}
+
+.sidebar-link.active {
+  background: rgba(255, 255, 255, 0.3);
+  border-left: 4px solid #10b981;
+}
+
+/* Conteneur général du bouton */
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Bouton de déconnexion */
+.logout-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #e63946, #ff4757);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Effet lumineux au survol */
+.logout-btn::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.logout-btn:hover::before {
+  opacity: 1;
+}
+
+/* Animation au survol */
+.logout-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+  background: linear-gradient(135deg, #ff4757, #e63946);
+}
+
+/* Effet clic */
+.logout-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(255, 71, 87, 0.3);
+}
+
+/* Icône */
+.logout-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.logout-btn:hover svg {
+  transform: rotate(-12deg);
+}
+
+
+/* ----------- SUBMENU Commandes ----------- */
+.submenu-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.submenu-title:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
+}
+
+.submenu-title.active {
+  background: rgba(255, 255, 255, 0.3);
+  border-left: 4px solid #10b981;
+}
+
+/* Conteneur de sous-menu */
+.submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 20px; /* décale la sous-liste */
+  margin-top: 5px;
+  transition: all 0.3s ease;
+}
+
+/* Liens dans le sous-menu */
+.sidebar-sublink {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: #e0f2f1;
+  text-decoration: none;
+  font-size: 15px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.sidebar-sublink:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
+}
+
+/* Petit indicateur ▸ animé pour la sous-liste */
+.submenu-title::after {
+  content: "▸";
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+.submenu-title.active::after {
+  transform: rotate(90deg); /* tourne vers le bas quand ouvert */
+}
+
+
+
+/* ---------------------- END SIDEBAR -----------------*/
+
+
+/* ----------------------BEGIN FOOTER  -----------------*/
+
+.footerAdmin {
+  background: linear-gradient(90deg, #1e3a8a, #059669);
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 14px;
+  margin-top: auto; /* reste toujours en bas */
+}
+
+.footerAdmin .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 5px;
+}
+
+.footerAdmin .social-icons a {
+  color: white;
+  transition: opacity 0.3s;
+}
+
+.footerAdmin .social-icons a:hover {
+  opacity: 0.8;
+}
+
+/* ----------------------END FOOTER  -----------------*/
+
+/* ---------- BEGIN TABLE DES APPOINTMENTS  -----------*/
+
+.appointments-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.appointments-section h2 {
+  text-align: center;
+  color: #1e3a8a;
+  margin-bottom: 20px;
+}
+
+.appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.appointments-table thead {
+  background: #1e3a8a;
+  color: white;
+}
+
+.appointments-table th,
+.appointments-table td {
+  border: 1px solid #e5e7eb;
+  padding: 10px 12px;
+  text-align: center;
+}
+
+.appointments-table th {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.appointments-table tbody tr:nth-child(even) {
+  background: #f3f4f6;
+}
+
+.appointments-table tbody tr:hover {
+  background: #e0e7ff;
+  transition: 0.2s;
+}
+
+.no-data {
+  text-align: center;
+  padding: 16px;
+  color: #6b7280;
+  font-style: italic;
+}
+
+
+/* ---------- END TABLE DES APPOINTMENTS  -----------*/
+
+/* ------------ BEGIN PAGINATION CSS  ---------------*/
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 6px;
+}
+
+.pagination li {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination li.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+
+/* ------------ END PAGINATION CSS  --------------*/
+
+/* ------------ BEGIN complaint-modal ------------ */
+
+.complaint-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(13, 17, 23, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeInOverlay 0.3s ease forwards;
+}
+
+.complaint-modal {
+  background: linear-gradient(145deg, #eaf9f2, #f2f8ff);
+  border-radius: 16px;
+  padding: 30px;
+  width: 550px;
+  max-width: 90%;
+  max-height: 75vh; /* limite la hauteur à 75% de l’écran */
+  overflow-y: auto; /* scroll vertical seulement */
+  overflow-x: hidden; /*désactive le scroll horizontal */
+  box-shadow: 0 10px 30px rgba(0, 120, 150, 0.25);
+  animation: slideUp 0.35s ease forwards;
+  position: relative;
+}
+
+/* scrollbar fine et stylée (uniquement verticale) */
+.complaint-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.complaint-modal::-webkit-scrollbar-track {
+  background: #dff7ef;
+  border-radius: 10px;
+}
+
+.complaint-modal::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00aaff, #00c28b);
+  border-radius: 10px;
+}
+
+.complaint-modal::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #00bfff, #00e6a0);
+}
+
+.complaint-modal::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle at top right, rgba(0, 200, 150, 0.3), transparent 70%);
+  transform: rotate(25deg);
+}
+
+.complaint-modal h3 {
+  margin-bottom: 15px;
+  color: #0d3b66;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+}
+
+.complaint-description {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+  color: #333;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  position: relative;
+  z-index: 1;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.complaint-description::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px; /* épaisseur de la bordure */
+  border-radius: 10px;
+  background: linear-gradient(135deg, #00aaff, #00c28b);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ------------ END complaint-modal ------------ */
+
+
+
+
+/* ===== Bouton Ajouter ===== */
+.add-stock-btn {
+  background: linear-gradient(135deg, #00c28b, #00a86b);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 194, 139, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.add-stock-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 194, 139, 0.4);
+}
+
+.add-stock-btn:active {
+  transform: scale(0.97);
+}
+
+
+
+/* ===== Container actions ===== */
+.actions-container {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+/* Boutons action */
+.action-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+/* Modifier (bleu) */
+.update-btn {
+  background: linear-gradient(135deg, #00aaff, #0077cc);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 170, 255, 0.3);
+}
+
+.update-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 170, 255, 0.4);
+}
+
+/* Supprimer (rouge moderne) */
+.delete-btn {
+  background: linear-gradient(135deg, #ff4d4d, #cc0000);
+  color: white;
+  box-shadow: 0 4px 10px rgba(255, 77, 77, 0.3);
+}
+
+.delete-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 77, 77, 0.4);
+}
+
+
+/* Visualiser PDF (vert turquoise) */
+.view-btn {
+  background: linear-gradient(135deg, #34d399, #10b981); /* vert dégradé */
+  color: white;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+  border-radius: 8px;
+  border: none;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+}
+
+
+
+/* ===== Inputs de date en haut (Du / Au) ===== */
+.date-input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1; /* gris clair */
+  outline: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: #f9fafb;
+  color: #1e293b;
+  width: 150px;
+  cursor: pointer;
+}
+
+/* Focus sur input date */
+.date-input:focus {
+  border-color: #00c28b; /* vert */
+  box-shadow: 0 0 0 3px rgba(0, 194, 139, 0.2);
+  background: #ffffff;
+}
+
+/* Label à côté de la date */
+.table-header label {
+  font-weight: 500;
+  font-size: 14px;
+  margin-right: 5px;
+  color: #1e3a8a; /* bleu foncé */
+}
+
+/* Conteneur des dates */
+.table-header > div {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Effet hover optionnel */
+.date-input:hover {
+  border-color: #00a86b; /* vert foncé au hover */
+}
+
+
+/* ===== Delete Confirmation Alert ===== */
+/* ===== Delete Confirmation Alert - Version Plus Visible ===== */
+.delete-alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+.delete-alert-content {
+  background: #fff5f5; /* rouge très clair pour avertissement */
+  padding: 30px 35px;
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  max-width: 500px;  /* agrandi un peu */
+  width: 90%;
+  animation: slideDown 0.3s ease forwards;
+}
+
+.delete-alert-content span {
+  display: block;
+  margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 17px;
+  color: #b91c1c; /* texte rouge foncé */
+}
+
+.delete-alert-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Boutons supprimer Oui / Non */
+.delete-yes-btn,
+.delete-no-btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-yes-btn {
+  background: linear-gradient(135deg, #ef4444, #b91c1c); /* rouge vif */
+  color: white;
+}
+
+.delete-yes-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(239, 68, 68, 0.35);
+}
+
+.delete-no-btn {
+  background: #e2e8f0; /* gris clair */
+  color: #334155;
+}
+
+.delete-no-btn:hover {
+  background: #cbd5e1;
+}
+
+
+/* ===== Alert Success / Error Message - Version Haut ===== */
+.alert-msg {
+  position: fixed;
+  top: 20px; /* déplacer en haut */
+  right: 20px;
+  min-width: 250px;
+  max-width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  font-weight: 500;
+  z-index: 4000;
+  animation: slideDown 0.3s ease forwards; /* animation depuis le haut */
+}
+
+.alert-msg-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  border-radius: 12px;
+}
+
+/* Succès - fond vert foncé et texte clair */
+.alert-msg.success {
+  background: #166534; /* vert foncé */
+  color: #f0fdf4;      /* texte clair */
+  border-left: 5px solid #22c55e;
+}
+
+/* Erreur - reste rouge mais texte clair */
+.alert-msg.error {
+  background: #b91c1c; /* rouge foncé */
+  color: #fee2e2;      /* texte clair */
+  border-left: 5px solid #ef4444;
+}
+
+.alert-ok-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  background: #22c55e; /* vert vif pour OK */
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.alert-ok-btn:hover {
+  background: #16a34a; /* hover vert plus foncé */
+  transform: translateY(-1px);
+}
+
+/* ===== Animations ===== */
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+
+/* ------------ BEGIN stock-CSS ------------ */
+
+.stock-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(13, 17, 23, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeInOverlay 0.3s ease forwards;
+}
+
+.stock-modal {
+  background: linear-gradient(145deg, #eaf9f2, #f2f8ff);
+  border-radius: 16px;
+  padding: 30px;
+  width: 550px;
+  max-width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 0 10px 30px rgba(0, 120, 150, 0.25);
+  animation: slideUp 0.35s ease forwards;
+  position: relative;
+}
+
+/* Scrollbar stylée */
+.stock-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.stock-modal::-webkit-scrollbar-track {
+  background: #dff7ef;
+  border-radius: 10px;
+}
+
+.stock-modal::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00aaff, #00c28b);
+  border-radius: 10px;
+}
+
+.stock-modal::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #00bfff, #00e6a0);
+}
+
+/* Effet décoratif arrière */
+.stock-modal::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle at top right, rgba(0, 200, 150, 0.3), transparent 70%);
+  transform: rotate(25deg);
+}
+
+/* Titre */
+.stock-modal h3 {
+  margin-bottom: 20px;
+  color: #0d3b66;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+}
+
+/* Inputs */
+.stock-modal input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #d0e8f2;
+  background: #ffffff;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.stock-modal input:focus {
+  border-color: #00aaff;
+  box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.2);
+  outline: none;
+}
+
+/* Boutons */
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.modal-buttons button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Ajouter */
+.modal-buttons button[type="submit"] {
+  background: linear-gradient(135deg, #00aaff, #00c28b);
+  color: white;
+}
+
+.modal-buttons button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 170, 255, 0.3);
+}
+
+/* Fermer */
+.modal-buttons button[type="button"] {
+  background: red;
+  color: wheat;
+}
+
+.modal-buttons button[type="button"]:hover {
+  background: brown;
+}
+
+/* Overlay blocage */
+.blocking-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+}
+
+/* Animations */
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+
+
+/* ------------ END stock-CSS ------------ */
+
+
+
+
+
+/* ------------ BEGIN AddAchatModal-CSS ------------ */
+
+/* Overlay modal */
+.proforma-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(13, 17, 23, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeInOverlay 0.3s ease forwards;
+}
+
+/* Conteneur modal */
+.proforma-modal {
+  background: linear-gradient(145deg, #eaf9f2, #f2f8ff);
+  border-radius: 16px;
+  padding: 30px;
+  width: 80%;
+  max-width: 1200px;
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 0 12px 40px rgba(0, 120, 150, 0.25);
+  animation: slideUp 0.35s ease forwards;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Scrollbar stylée */
+.proforma-modal::-webkit-scrollbar {
+  width: 10px;
+}
+
+.proforma-modal::-webkit-scrollbar-track {
+  background: #dff7ef;
+  border-radius: 10px;
+}
+
+.proforma-modal::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00aaff, #00c28b);
+  border-radius: 10px;
+}
+
+.proforma-modal::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #00bfff, #00e6a0);
+}
+
+/* Effet décoratif arrière */
+.proforma-modal::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle at top right, rgba(0, 200, 150, 0.25), transparent 70%);
+  transform: rotate(25deg);
+}
+
+/* Titre modal */
+.proforma-modal h3 {
+  margin-bottom: 25px;
+  color: #0d3b66;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
+}
+
+/* Inputs et selects */
+.proforma-modal input,
+.proforma-modal select {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #d0e8f2;
+  background: #ffffff;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.proforma-modal input:focus,
+.proforma-modal select:focus {
+  border-color: #00aaff;
+  box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.2);
+  outline: none;
+}
+
+/* Section produits */
+.products-section h4 {
+  margin-bottom: 15px;
+  color: #0d3b66;
+  font-weight: 600;
+}
+
+/* Contrôles produits */
+.products-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.products-controls input {
+  flex: 1 1 150px;
+}
+
+.products-controls button {
+  flex: 0 0 auto;
+  height: 52px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #00aaff, #00c28b);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.products-controls button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 170, 255, 0.3);
+}
+
+/* Table produits sélectionnés */
+.selected-products-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.selected-products-table th,
+.selected-products-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #d0e8f2;
+}
+
+.selected-products-table th {
+  background: #e0f2f1;
+  color: #0d3b66;
+  font-weight: 600;
+}
+
+/* Boutons supprimer produits */
+.selected-products-table button {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.selected-products-table button:hover {
+  background: #b91c1c;
+}
+
+.autocomplete-list {
+  position: absolute; /* sort du flux normal */
+  top: 100%;          /* juste sous l’input */
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #d0e8f2;
+  border-radius: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  z-index: 100;       /* au-dessus des autres éléments */
+}
+
+.autocomplete-list div {
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.autocomplete-list div:hover {
+  background: #f0f9ff;
+}
+
+
+/* Alert message */
+.advanced-alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.advanced-alert.success {
+  background: #166534;
+  color: #dcfce7;
+  border-left: 6px solid #22c55e;
+}
+
+.advanced-alert.error {
+  background: #991b1b;
+  color: #fee2e2;
+  border-left: 6px solid #ef4444;
+}
+
+.alert-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.alert-btn:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+}
+
+/* Boutons Fermer / Enregistrer */
+.top-buttons button {
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-modal-btn {
+  position: relative; /* pour s'assurer que le z-index fonctionne */
+  z-index: 50;        /* plus haut que la liste autocomplete */
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: #ef4444;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.close-modal-btn:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+
+
+.top-buttons button[type="submit"] {
+  background: linear-gradient(135deg, #00aaff, #00c28b);
+  color: #fff;
+}
+
+.top-buttons button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 170, 255, 0.3);
+}
+
+.top-buttons button[type="button"] {
+  background: #ef4444;
+  color: #fff;
+}
+
+.top-buttons button[type="button"]:hover {
+  background: #b91c1c;
+}
+
+/* Overlay blocage */
+.blocking-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  z-index: 100;
+}
+
+/* Animations */
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ------------ END AddAchatModal-CSS ------------ */
