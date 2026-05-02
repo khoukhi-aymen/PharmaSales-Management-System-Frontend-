@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../Config/axiosConfig";
 
 class Login extends Component {
   constructor(props) {
@@ -24,7 +24,6 @@ class Login extends Component {
       })
       .catch(err => console.error(err));
   }
-
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -52,7 +51,7 @@ class Login extends Component {
       })
       .catch((err) => {
         this.setState({
-          alertMessage: err.response?.data?.message || "Échec de la connexion.",
+          alertMessage: err.response?.data?.message || "Échec de la connexion",
           alertType: "error",
         });
       });

@@ -21,7 +21,7 @@ class Navbar extends Component {
             {/* Logo */}
             <Link className="navbar-brand fw-bold brand-logo d-flex align-items-center" to="/">
               <img src="/images/logo.png" alt="Elsafwa Clinic Logo" className="logo-img" />
-              <span style={{ marginLeft: "8px" }}>Nom de l’entreprise</span>
+              <span style={{ marginLeft: "8px" }}>Epecia</span>
             </Link>
 
             {/* Burger menu (mobile) */}

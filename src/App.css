@@ -943,6 +943,59 @@ select.form-select {
   font-style: italic;
 }
 
+.deleted-page .title {
+    color: #d10000;
+    font-weight: 700;
+}
+
+.deleted-page .table-header {
+    background: linear-gradient(90deg, #fff1f1, #ffe5e5);
+    border-left: 5px solid #d10000;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.deleted-page .appointments-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.deleted-page .appointments-table thead {
+    background: #ffecec;
+}
+
+.deleted-page .appointments-table th {
+    color: #b30000;
+    font-weight: 600;
+}
+
+.deleted-page tbody tr {
+    background: #fff5f5;
+    transition: 0.2s;
+}
+
+.deleted-page tbody tr:hover {
+    background: #ffe1e1;
+}
+
+.deleted-badge {
+    background: #ff0000;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.deleted-warning {
+    background: #ffdddd;
+    color: #a10000;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
 
 /* ---------- END TABLE DES APPOINTMENTS  -----------*/
 
@@ -1165,11 +1218,109 @@ select.form-select {
 }
 
 
+/* Désactiver (orange) */
+.deactivate-btn {
+  background: linear-gradient(135deg, #ffa94d, #ff922b);
+  color: white;
+  box-shadow: 0 4px 10px rgba(255, 146, 43, 0.3);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.deactivate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 146, 43, 0.4);
+}
+
+/* Activer (vert) */
+.activate-btn {
+  background: linear-gradient(135deg, #51cf66, #2f9e44);
+  color: white;
+  box-shadow: 0 4px 10px rgba(47, 158, 68, 0.3);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.activate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(47, 158, 68, 0.4);
+}
+
+
+/* Fussioner (blue) */
+
+.fusion-btn {
+  background: #2563eb;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.cancel-fusion-btn {
+  background: #6b7280;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+}
+
+.confirm-fusion-btn {
+  background: #16a34a;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  font-weight: bold;
+}
+
+/* checkbox Fussioner */
+
+input[type="checkbox"] {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+/* button disabled */
+
+.disabled-btn {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(100%);
+  transform: scale(0.95);
+  transition: all 0.2s ease;
+}
+
+/* Reset password (jaune/orange clair) */
+.reset-btn {
+  background: linear-gradient(135deg, #ffd43b, #fab005);
+  color: white;
+  box-shadow: 0 4px 10px rgba(250, 176, 5, 0.3);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(250, 176, 5, 0.4);
+}
+
 /* Visualiser PDF (vert turquoise) */
 .view-btn {
-  background: linear-gradient(135deg, #34d399, #10b981); /* vert dégradé */
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: white;
-  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
   border-radius: 8px;
   border: none;
   width: 35px;
@@ -1183,7 +1334,7 @@ select.form-select {
 
 .view-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.4);
 }
 
 
@@ -1230,8 +1381,8 @@ select.form-select {
 }
 
 
-/* ===== Delete Confirmation Alert ===== */
-/* ===== Delete Confirmation Alert - Version Plus Visible ===== */
+/* ===== Delete Alert ===== */
+
 .delete-alert {
   position: fixed;
   top: 0;
@@ -1247,12 +1398,12 @@ select.form-select {
 }
 
 .delete-alert-content {
-  background: #fff5f5; /* rouge très clair pour avertissement */
+  background: #fff1f2; /* rouge très clair */
   padding: 30px 35px;
   border-radius: 18px;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
   text-align: center;
-  max-width: 500px;  /* agrandi un peu */
+  max-width: 650px;
   width: 90%;
   animation: slideDown 0.3s ease forwards;
 }
@@ -1262,7 +1413,7 @@ select.form-select {
   margin-bottom: 25px;
   font-weight: 600;
   font-size: 17px;
-  color: #b91c1c; /* texte rouge foncé */
+  color: #e03131; /* rouge foncé */
 }
 
 .delete-alert-actions {
@@ -1271,8 +1422,25 @@ select.form-select {
   gap: 20px;
 }
 
-/* Boutons supprimer Oui / Non */
-.delete-yes-btn,
+/* Bouton OUI (DELETE - rouge danger) */
+.delete-yes-btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  background: linear-gradient(135deg, #ff6b6b, #e03131);
+  color: white;
+}
+
+.delete-yes-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(224, 49, 49, 0.4);
+}
+
+/* Bouton NON */
 .delete-no-btn {
   padding: 12px 20px;
   border-radius: 12px;
@@ -1280,25 +1448,358 @@ select.form-select {
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-}
 
-.delete-yes-btn {
-  background: linear-gradient(135deg, #ef4444, #b91c1c); /* rouge vif */
-  color: white;
-}
-
-.delete-yes-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(239, 68, 68, 0.35);
-}
-
-.delete-no-btn {
-  background: #e2e8f0; /* gris clair */
-  color: #334155;
+  background: #919497;
+  color: #ffffff;
 }
 
 .delete-no-btn:hover {
-  background: #cbd5e1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px #aaaaaa;
+}
+
+
+
+/* ===== Deactivate Alert ===== */
+
+.deactivate-alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+.deactivate-alert-content {
+  background: #fff7ed; /* orange très clair */
+  padding: 30px 35px;
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  max-width: 650px;
+  width: 90%;
+  animation: slideDown 0.3s ease forwards;
+}
+
+.deactivate-alert-content span {
+  display: block;
+  margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 17px;
+  color: #f86c35; /* orange foncé */
+}
+
+.deactivate-alert-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Bouton OUI (désactiver) */
+.deactivate-yes-btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  background: linear-gradient(135deg, #ffa94d, #ff922b); /* ORANGE */
+  color: white;
+}
+
+.deactivate-yes-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 146, 43, 0.4);
+}
+
+/* Bouton NON */
+.deactivate-no-btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  background: #919497;
+  color: #ffffff;
+}
+
+.deactivate-no-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px #aaaaaa;
+}
+
+
+
+/* ===== Activate Alert ===== */
+
+.activate-alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+.activate-alert-content {
+  background: #f0fff4; /* vert très clair */
+  padding: 30px 35px;
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  max-width: 650px;
+  width: 90%;
+  animation: slideDown 0.3s ease forwards;
+}
+
+.activate-alert-content span {
+  display: block;
+  margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 17px;
+  color: #2f9e44; /* vert foncé */
+}
+
+.activate-alert-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Bouton OUI (activer) */
+.activate-yes-btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  background: linear-gradient(135deg, #51cf66, #2f9e44);
+  color: white;
+}
+
+.activate-yes-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(47, 158, 68, 0.4);
+}
+
+/* Bouton NON */
+.activate-no-btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  background: #919497;
+  color: #ffffff;
+}
+
+.activate-no-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px #aaaaaa;
+}
+
+
+/* ===== Fusion Alert ===== */
+
+.fusion-alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+.fusion-alert-content {
+  background: #e6f9f5; /* vert/bleu très clair */
+  padding: 30px 35px;
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  max-width: 650px;
+  width: 90%;
+  animation: slideDown 0.3s ease forwards;
+}
+
+.fusion-alert-content span {
+  display: block;
+  margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 17px;
+  color: #00aaff; /* bleu */
+}
+
+.fusion-alert-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Bouton OUI (fusion) */
+.fusion-yes-btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  background: linear-gradient(135deg, #00aaff, #00c28b);
+  color: white;
+}
+
+.fusion-yes-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 194, 139, 0.4);
+}
+
+/* Bouton NON */
+.fusion-no-btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  background: #ef4444;
+  color: white;
+}
+
+.fusion-no-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(239, 68, 68, 0.4);
+}
+
+.fusion-loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.fusion-alert-content {
+    transition: all 0.3s ease;
+}
+
+.spinner {
+    width: 25px;
+    height: 25px;
+    border: 3px solid #ddd;
+    border-top: 3px solid #4f46e5;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.spinner.large {
+    width: 40px;
+    height: 40px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* ===== Restore Alert ===== */
+
+.restore-alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+.restore-alert-content {
+  background: #eef2ff; /* bleu clair (style update) */
+  padding: 30px 35px;
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  max-width: 650px;
+  width: 90%;
+  animation: slideDown 0.3s ease forwards;
+}
+
+.restore-alert-content span {
+  display: block;
+  margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 17px;
+  color: #1e3a8a; /* bleu foncé (cohérent update) */
+}
+
+.restore-alert-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* OUI = même style que update-btn */
+.restore-yes-btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  background: linear-gradient(135deg, #60a5fa, #2563eb); /* bleu update */
+  color: white;
+}
+
+.restore-yes-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.4);
+}
+
+/* NON */
+.restore-no-btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  background: #919497;
+  color: #ffffff;
+}
+
+.restore-no-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px #aaaaaa;
 }
 
 
@@ -1329,20 +1830,22 @@ select.form-select {
   background: #166534; /* vert foncé */
   color: #f0fdf4;      /* texte clair */
   border-left: 5px solid #22c55e;
+  font-weight: bold;  /* texte en gras */
 }
 
 /* Erreur - reste rouge mais texte clair */
 .alert-msg.error {
   background: #b91c1c; /* rouge foncé */
-  color: #fee2e2;      /* texte clair */
+  color: #f0fdf4;      /* texte clair */
   border-left: 5px solid #ef4444;
+  font-weight: bold;  /* texte en gras */
 }
 
 .alert-ok-btn {
   padding: 6px 12px;
   border-radius: 8px;
   border: none;
-  background: #22c55e; /* vert vif pour OK */
+  background: #2256c5; /* vert vif pour OK */
   color: white;
   cursor: pointer;
   font-weight: 600;
@@ -1350,7 +1853,7 @@ select.form-select {
 }
 
 .alert-ok-btn:hover {
-  background: #16a34a; /* hover vert plus foncé */
+  background: #151fa5; /* hover vert plus foncé */
   transform: translateY(-1px);
 }
 
@@ -1825,3 +2328,356 @@ select.form-select {
 }
 
 /* ------------ END AddAchatModal-CSS ------------ */
+
+
+
+/* ------------ BEGIN UPDATE MODAL STYLE CSS ------------ */
+
+.update-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(13, 17, 23, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeInOverlay 0.3s ease forwards;
+}
+
+.update-modal {
+  background: linear-gradient(145deg, #eaf9f2, #f2f8ff);
+  border-radius: 16px;
+  padding: 30px;
+  width: 80%;
+  max-width: 1100px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 12px 40px rgba(0, 120, 150, 0.25);
+  animation: slideUp 0.35s ease forwards;
+  position: relative;
+}
+
+/* titre */
+.update-modal h3 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #0d3b66;
+}
+
+/* grid */
+.update-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+/* inputs */
+.update-modal input,
+.update-modal select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #d0e8f2;
+  background: #fff;
+}
+
+/* section */
+.update-section {
+  margin-top: 20px;
+}
+
+.update-section h4 {
+  margin-bottom: 10px;
+  color: #0d3b66;
+}
+
+/* boutons */
+.update-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.update-buttons button {
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.update-save {
+  background: linear-gradient(135deg, #00aaff, #00c28b);
+  color: white;
+}
+
+.update-close {
+  background: #ef4444;
+  color: white;
+}
+
+
+/* NAVBAR TABS */
+.update-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #d0e8f2;
+}
+
+.update-tabs button {
+  padding: 10px 18px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  color: #0d3b66;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.update-tabs button:hover {
+  color: #00aaff;
+}
+
+.update-tabs button.active {
+  border-bottom: 3px solid #00aaff;
+  color: #00aaff;
+}
+
+
+/* ------------ END UPDATE MODAL STYLE CSS ------------ */
+
+/* ------------ BEGIN MODAL FUSION STYLE CSS ------------ */
+
+
+.fusion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fusion-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #d0e8f2;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.fusion-item:hover {
+  background: #eef6ff;
+  transform: translateY(-1px);
+}
+
+.fusion-item.active {
+  border: 2px solid #00aaff;
+  background: #e6f7ff;
+}
+
+/* infos */
+.fusion-info {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* détails */
+.fusion-details {
+  font-size: 13px;
+  color: #555;
+  margin-top: 2px;
+}
+
+/* ===== PREVIEW ===== */
+
+.fusion-preview {
+  margin-top: 20px;
+}
+
+.fusion-preview-card {
+  background: #ffffff;
+  border: 1px solid #d0e8f2;
+  border-radius: 12px;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+
+
+.fusion-row {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+/* colonne */
+.fusion-col {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  color: #444;
+}
+
+/* colonne principale */
+.fusion-main {
+  min-width: 180px;
+}
+
+/* nom */
+.fusion-name {
+  font-weight: 600;
+  color: #0d3b66;
+  font-size: 14px;
+}
+
+/* sous info */
+.fusion-sub {
+  font-size: 12px;
+  color: #888;
+}
+
+/* label */
+.fusion-label {
+  font-size: 11px;
+  color: #999;
+}
+
+/* badge */
+.fusion-badge {
+  margin-left: auto;
+  background: #00aaff;
+  color: white;
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+
+.fusion-item {
+  border-left: 4px solid transparent;
+}
+
+.fusion-item.active {
+  border-left: 4px solid #00aaff;
+}
+
+
+
+
+
+/* ------------ END MODAL FUSION STYLE CSS ------------ */
+
+
+
+
+/* ------------ BEGIN MODAL AFFICHER DETAILS LOGS STYLE CSS ------------ */
+
+
+
+.details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.detail-section {
+    background: #ffffff;
+    border: 1px solid #e3e6ea;
+    border-radius: 10px;
+    padding: 12px;
+    transition: 0.2s;
+}
+
+.detail-section:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.detail-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    border-left: 4px solid #3498db;
+    padding-left: 8px;
+}
+
+.detail-content {
+    padding-left: 5px;
+}
+
+.detail-row {
+    display: flex;
+    gap: 5px;
+    padding: 4px 0;
+    font-size: 13px;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: #555;
+    min-width: 120px;
+}
+
+.detail-value {
+    color: #2c3e50;
+    font-weight: 400;
+}
+
+.detail-separator {
+    margin: 0 5px;
+    color: #999;
+}
+
+.detail-object {
+    background: #f9fafb;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.detail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detail-card {
+    border: 1px dashed #dcdcdc;
+    padding: 8px;
+    border-radius: 6px;
+    background: #fff;
+}
+
+
+
+/* ------------ END MODAL AFFICHER DETAILS LOGS STYLE CSS ------------ */
+
+
+/* ----------- BEGIN STYLE CREATE BACKUP BUTTON  ------------*/
+
+.create-backup-btn {
+  background: #9333ea; /* violet (tu peux changer) */
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.create-backup-btn:hover {
+  background: #7e22ce; /* effet hover */
+}
+
+
+/* ----------- END STYLE CREATE BACKUP BUTTON  ------------*/

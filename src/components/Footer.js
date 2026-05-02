@@ -10,7 +10,7 @@ class Footer extends Component {
         <footer className="footer">
           <div className="social-icons">
             <a
-              href="https://www.facebook.com/profile.php?id=61575732694091&locale=ar_AR"
+              href="https://www.facebook.com/epecia/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -18,7 +18,7 @@ class Footer extends Component {
             </a>
 
             <a
-              href="https://www.instagram.com/clinique_elsafwa/"
+              href="https://www.instagram.com/epecia.store/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -26,7 +26,7 @@ class Footer extends Component {
             </a>
 
             <a
-              href="https://www.linkedin.com/company/clinique-el-safwa/posts/?feedView=all"
+              href="https://www.linkedin.com/company/epecia"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -34,7 +34,7 @@ class Footer extends Component {
             </a>
           </div>
 
-          <p className="footer-text">© {new Date().getFullYear()} Clinique El Safwa. Tous droits réservés.</p>
+          <p className="footer-text">© {new Date().getFullYear()} Epecia. Tous droits réservés.</p>
 
         </footer>
       </div>

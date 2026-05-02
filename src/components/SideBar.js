@@ -1,118 +1,214 @@
 import React, { Component } from "react";
-import { Link, Navigate } from "react-router-dom";
-import { ShoppingCart, Package, FileText, LogOut } from "lucide-react";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import { Users, UserCheck, UserX, LogOut, Trash2, Package, ClipboardList, Database, UserCog } from "lucide-react";
+import axios from "../Config/axiosConfig";
 
 class AdminSidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirectToLogin: false,
       alertMessage: "",
-      alertType: "", // "success" ou "error"
-      openCommandes: false, // nouveau
+      alertType: "",
+      openClients: false,
+      openArticles: false,
+      openBackup: false,
+      openUsers: false,
+      role: "",
+      name: ""
     };
+  }
+
+
+  componentDidMount() {
+    axios.get("http://localhost:8000/me", { withCredentials: true })
+      .then(res => {
+        this.setState({
+          role: res.data.user.role,
+          name: res.data.user.name
+        });
+      })
   }
 
   handleLogout = () => {
     axios.post("http://localhost:8000/logout", {}, { withCredentials: true })
-      .then(res => {
+      .then(() => {
         this.setState({
-          alertMessage: "",
-          alertType: "",
+          alertMessage: "Déconnexion réussie",
+          alertType: "success",
         });
 
-        // Après 1 seconde → redirige
         setTimeout(() => {
           window.location.href = "/login";
         }, 1000);
       })
-      .catch(err => {
+      .catch(() => {
         this.setState({
-          alertMessage: "Erreur lors de la déconnexion",
+          alertMessage: "Échec de la déconnexion",
           alertType: "error",
         });
       });
   };
 
-  // -------- FERMETURE DU MESSAGE ----------
   closeAlert = () => {
     this.setState({ alertMessage: "", alertType: "" });
   };
 
-  toggleCommandes = () => {
-    this.setState(prevState => ({
-      openCommandes: !prevState.openCommandes
+  toggleClients = () => {
+    this.setState(prev => ({
+      openClients: !prev.openClients
+    }));
+  };
+
+  toggleArticles = () => {
+    this.setState(prev => ({ openArticles: !prev.openArticles }));
+  };
+
+  toggleUsers = () => {
+    this.setState(prev => ({
+      openUsers: !prev.openUsers
     }));
   };
 
 
+  toggleBackup = () => {
+    this.setState(prev => ({
+      openBackup: !prev.openBackup
+    }));
+  };
 
   render() {
-    // Si déconnexion → redirection vers /login
-    if (this.state.redirectToLogin) {
-      return <Navigate to="/login" replace />;
-    }
-
     return (
-
       <>
-        {/* ----------- MESSAGE ALERT ----------- */}
+        {/* -------- ALERT -------- */}
         {this.state.alertMessage && (
-          <div className={`top-alert ${this.state.alertType}`}>
-            <div className="top-alert-content">
+          <div className={`alert-msg ${this.state.alertType}`}>
+            <div className="alert-msg-content">
               <span>{this.state.alertMessage}</span>
-              <button className="top-alert-btn" onClick={this.closeAlert}>
+              <button
+                className="alert-ok-btn"
+                onClick={this.closeAlert}
+                style={{ marginLeft: "10px" }}
+              >
                 OK
               </button>
             </div>
           </div>
         )}
+
         <aside className="admin-sidebar flex flex-col justify-between min-h-screen">
-          {/* Partie haute : logo + menu */}
+
+          {/* -------- HAUT -------- */}
           <div>
             <div className="sidebar-logo">
               <img src="/images/admin.png" alt="Logo" />
-              <h2>Portail Admin</h2>
+              <h2>{this.state.name || "Admin"}</h2>
             </div>
 
             <nav className="sidebar-menu">
-              <Link to="/admin/Stock" className="sidebar-link">
-                <Package size={20} /> <span>Stock</span>
-              </Link>
 
-              <div className="sidebar-link submenu-title" onClick={this.toggleCommandes}>
-                <ShoppingCart size={20} />
-                <span>Commandes</span>
-              </div>
+              {/* Clients / Fournisseurs */}
+              {(this.state.role === "admin" || this.state.role === "fusion_clients") && (
+                <>
+                  <div className="sidebar-link submenu-title" onClick={this.toggleClients}>
+                    <Users size={20} />
+                    <span>Tiers</span>
+                  </div>
 
-              {this.state.openCommandes && (
-                <div className="submenu">
-                  <Link to="/admin/Achats" className="sidebar-sublink">
-                    ▸ Achats
-                  </Link>
+                  {this.state.openClients && (
+                    <div className="submenu">
+                      <Link to="/biztrack/get/Tier/Actif" className="sidebar-sublink">
+                        <UserCheck size={16} /> Actifs
+                      </Link>
 
-                  <Link to="/admin/Ventes" className="sidebar-sublink">
-                    ▸ Ventes
-                  </Link>
-                </div>
+                      <Link to="/biztrack/get/Tier/inactifs" className="sidebar-sublink">
+                        <UserX size={16} /> Non actifs
+                      </Link>
+
+                      <Link to="/biztrack/get/Tier/deleted" className="sidebar-sublink">
+                        <Trash2 size={16} /> Supprimés
+                      </Link>
+                    </div>
+                  )}
+                </>
               )}
 
-              <Link to="/admin/FacturesProformats" className="sidebar-link">
-                <FileText size={20} /> <span>Proformas</span>
-              </Link>
+
+              {/* Articles */}
+
+              {(this.state.role === "admin" || this.state.role === "fusion_articles") && (
+                <>
+                  <div className="sidebar-link submenu-title" onClick={this.toggleArticles}>
+                    <Package size={20} />
+                    <span>Articles</span>
+                  </div>
+
+                  {this.state.openArticles && (
+                    <div className="submenu">
+                      <Link to="/biztrack/get/articles/actifs" className="sidebar-sublink">
+                        <UserCheck size={16} /> Actifs
+                      </Link>
+
+                      <Link to="/biztrack/get/articles/inactifs" className="sidebar-sublink">
+                        <UserX size={16} /> Non actifs
+                      </Link>
+                    </div>
+                  )}
+                </>
+              )}
+
+              {/* Logs */}
+
+              {this.state.role === "admin" && (
+                <Link to="/admin/logs" className="sidebar-link">
+                  <ClipboardList size={20} />
+                  <span>Logs</span>
+                </Link>
+              )}
+
+
+
+              {/* BACKUP */}
+              {this.state.role === "admin" && (
+                <Link to="/admin/backups" className="sidebar-link">
+                  <Database size={20} />
+                  <span>Sauvegardes</span>
+                </Link>
+              )}
+
+
+              {/* USERS MANAGEMENT */}
+              {this.state.role === "admin" && (
+                <>
+                  <div className="sidebar-link submenu-title" onClick={this.toggleUsers}>
+                    <UserCog size={20} />
+                    <span>Users</span>
+                  </div>
+
+                  {this.state.openUsers && (
+                    <div className="submenu">
+                      <Link to="/admin/users/actifs" className="sidebar-sublink">
+                        <UserCheck size={16} /> Actifs
+                      </Link>
+
+                      <Link to="/admin/users/inactifs" className="sidebar-sublink">
+                        <UserX size={16} /> Inactifs
+                      </Link>
+                    </div>
+                  )}
+                </>
+              )}
+
+
             </nav>
           </div>
 
-          {/* Partie basse : bouton de déconnexion */}
+          {/* -------- BAS -------- */}
           <div className="sidebar-footer p-4">
-            <button
-              onClick={this.handleLogout}
-              className="logout-btn"
-            >
+            <button onClick={this.handleLogout} className="logout-btn">
               <LogOut size={18} /> Logout
             </button>
           </div>
+
         </aside>
       </>
     );

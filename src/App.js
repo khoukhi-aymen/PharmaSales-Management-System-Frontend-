@@ -6,10 +6,15 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import UserInterface from './layout/UserInterface';
 import AdminInterface from './layout/adminInterface';
 import Login from './pages/Login';
-import Ventes from './pages/adminPages/VentesClient';
-import Achats from './pages/adminPages/AchatsFournisseur';
-import FacturesProformats from './pages/adminPages/Proformats';
-import Stock from './pages/adminPages/Stock';
+import TierActif from './pages/adminPages/TierActif';
+import TierNonActif from './pages/adminPages/TierNonActif';
+import TierDeleted from './pages/adminPages/TierDeleted';
+import ArticlesActif from './pages/adminPages/ArticlesActif';
+import ArticlesNonActif from './pages/adminPages/ArticleNonActif';
+import Logs from './pages/adminPages/Journal';
+import Backups from './pages/adminPages/Backups';
+import UsersActifs from './pages/adminPages/UsersActif';
+import UsersInactifs from './pages/adminPages/UsersInactif';
 
 
 function App() {
@@ -22,11 +27,16 @@ function App() {
         </Route>
 
         {/* Interface admin */}
-        <Route path="/admin" element={<AdminInterface />}>
-          <Route path="Stock" element={<Stock />} />
-          <Route path="Ventes" element={<Ventes />} />
-          <Route path="Achats" element={<Achats />} />
-          <Route path="FacturesProformats" element={<FacturesProformats />} />
+        <Route path="/" element={<AdminInterface />}>
+          <Route path="biztrack/get/Tier/Actif" element={<TierActif />} />
+          <Route path="biztrack/get/Tier/inactifs" element={<TierNonActif />} />
+          <Route path="biztrack/get/Tier/deleted" element={<TierDeleted />} />
+          <Route path="biztrack/get/articles/actifs" element={<ArticlesActif />} />
+          <Route path="biztrack/get/articles/inactifs" element={<ArticlesNonActif />} />
+          <Route path="admin/logs" element={<Logs />} />
+          <Route path="admin/backups" element={<Backups />} />
+          <Route path="admin/users/actifs" element={<UsersActifs />} />
+          <Route path="admin/users/inactifs" element={<UsersInactifs />} />
         </Route>
       </Routes>
     </div>
